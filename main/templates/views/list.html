@@ -12,15 +12,18 @@
                 </div>
             </div>
         </div>
-        <form action = "" method= "POST" enctype = "multipart/form-data">
+        <form action = "" method= "POST" enctype = "multipart/form-data"> !<!-- This is a must when user uploading files or images  -->
             {% csrf_token %}
-            <div class = "row">
-                <div class = "col-6">
-                    {{listing_form}}
+            <div class="card shadow p-4 mb-4">
+            <h4 class="mb-3">Car Listing Details</h4>
+            <div class="row">
+                <div class="col-md-6">
+                {{ listing_form|crispy }}
                 </div>
-                <div class = "col-6">
-                    {{location_form}}
+                <div class="col-md-6">
+                {{ location_form|crispy }}
                 </div>
+            </div>
             </div>
             <button class="btn btn-lg btn-danger" type = "submit">Save</button>
         </form>
