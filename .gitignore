@@ -1,0 +1,21 @@
+# Ignore Python compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ignore virtual environment folder
+venv/
+
+# Ignore Django database and logs
+*.log
+db.sqlite3
+
+# Ignore media and static folders (auto-generated during run or collectstatic)
+media/
+static/
+
+# Ignore environment variable file (if you have secrets in it)
+.env
+
+# Ignore VSCode editor settings
+.vscode/
