@@ -1,6 +1,6 @@
 {% extends 'base/base.html' %}
 {% load static %}
-
+{% load crispy_forms_tags %}
 {% block 'title' %}
 <title>Automax . Home - Welcome</title>
 {% endblock %}
@@ -16,7 +16,10 @@
                 <a href="{% url 'list' %}" class="btn btn-primary my-2">List Your Car</a>
             </div>
             <div class="col-lg-6 col-md-8 mx-auto">
-                <!--Filter Forms-->
+                <form method = "get">
+                    {{ Listing_Filter.form | crispy }}
+                    <button class="btn btn-lg btn-danger" type = "submit">Filter</button>   
+                </form>
             </div>
         </div>
     </section>

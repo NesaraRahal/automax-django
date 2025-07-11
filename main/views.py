@@ -6,6 +6,9 @@ from django.contrib import messages
 from .forms import ListingForm
 from users.forms import LocationForm
 
+#Filter import
+from .filters import ListingFilter
+
 # Create your views here.
 def main_view(request):
     return render(request, "views/main.html", {"name" : "Automax!:)"})
@@ -14,8 +17,10 @@ def main_view(request):
 def home_view(request):
     #Retrieve all listing objects to render in home.html as card elements
     listings = Listing.objects.all()
+    Listing_Filter = ListingFilter(request.GET, queryset = listings)
     context = {
         "listings" : listings,
+        "Listing_Filter" : Listing_Filter
     }
     return render(request, "views/home.html", context)
 
