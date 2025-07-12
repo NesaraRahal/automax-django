@@ -3,6 +3,6 @@ from .models import Listing
 # Register your models here.
 
 class ListingAdmin(admin.ModelAdmin):
-    pass
+    readonly_fields=('id', 'created_at', 'vin')
 
 admin.site.register(Listing, ListingAdmin)
