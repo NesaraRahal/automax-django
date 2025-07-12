@@ -19,7 +19,6 @@ def home_view(request):
     listings = Listing.objects.all()
     Listing_Filter = ListingFilter(request.GET, queryset = listings)
     context = {
-        "listings" : listings,
         "Listing_Filter" : Listing_Filter
     }
     return render(request, "views/home.html", context)
