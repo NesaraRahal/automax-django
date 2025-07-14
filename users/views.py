@@ -4,6 +4,8 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+
 
 #importing View (inheritance) for class based views
 from django.views import View
@@ -63,7 +65,8 @@ class RegisterView(View):
         else:
             messages.error(request, f'An occured while Register')
             return render(request, 'views/register.html', {'register_form' : register_form})
-        
+
+@method_decorator(login_required, name='dispatch')
 class ProfileView(View):
     def get(self, request):
         return render(request, 'views/profile.html', {});
