@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from .forms import UserForm, ProfileForm, LocationForm
 
 
 #importing View (inheritance) for class based views
@@ -69,7 +70,10 @@ class RegisterView(View):
 @method_decorator(login_required, name='dispatch')
 class ProfileView(View):
     def get(self, request):
-        return render(request, 'views/profile.html', {});
+        user_form = UserForm(instance=request.user)
+        profile_form = ProfileForm(instance=request.user.profile)
+        location_form = LocationForm(instance=request.user.profile.locations)
+        return render(request, 'views/profile.html', {'user_form': user_form, 'profile_form': profile_form, 'location_form': location_form});
     
     def post(self, request):
         pass;
