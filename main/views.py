@@ -58,3 +58,33 @@ def listing_view(request, id):
     except Exception as e:
         messages.error(request, f'Invalid ID {id} was provided')
         return redirect('home')
+
+
+@login_required
+def edit_view(request, id):
+    try:
+        edit_listing = Listing.objects.get(id=id)
+        if edit_listing is None:
+            raise Exception
+        if request.POST:
+            listing_form = ListingForm(request.POST, request.FILES, instance = edit_listing)
+            location_form = LocationForm(request.POST, instance = edit_listing.location)
+            if listing_form.is_valid() and location_form.is_valid():
+                listing_form.save()
+                location_form.save()
+                messages.info(request, f'Lisitng {id} updated successfully')
+                return redirect('home')
+            else:
+                messages.error(request, f'An error occured while tryig to edit the listing')
+                return redirect(request.path)
+        else:
+            listing_form = ListingForm(instance = edit_listing)
+            location_form = LocationForm(instance = edit_listing.location)
+        context = {
+            'listing_form': listing_form,
+            'location_form': location_form
+        }
+        return render(request, 'views/edit.html', context)
+    except Exception as e:
+        messages.error(request, f'An error occured while tryig to access the edit page')
+        return redirect('home')
