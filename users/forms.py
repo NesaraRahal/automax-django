@@ -22,6 +22,7 @@ class UserForm(forms.ModelForm):
 
 class ProfileForm(forms.ModelForm):   
     class Meta:
+        bio = forms.TextInput()
         model = Profile
         fields = ['image', 'bio', 'contact_number']
         widgets = {
