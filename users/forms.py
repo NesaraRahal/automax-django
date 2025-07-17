@@ -2,7 +2,7 @@ from django import forms
 from .models import Location, Profile
 from localflavor.us.forms import USZipCodeField
 from django.contrib.auth.models import User
-
+from .widgets import CustomImageField
 
 class LocationForm(forms.ModelForm):
     address_1 = forms.CharField(required= True)
@@ -23,4 +23,7 @@ class UserForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):   
     class Meta:
         model = Profile
-        fields = {'image', 'bio', 'contact_number'}
+        fields = ['image', 'bio', 'contact_number']
+        widgets = {
+            'image': CustomImageField()
+        }
