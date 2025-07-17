@@ -31,6 +31,26 @@
         <div class="row g-4">
             <div class="col d-flex align-items-start">
                 <div>
+                    <h2 class="mb-3 border-bottom" style="color: black">Liked Listing</h2>
+                </div>
+            </div>
+        </div>
+        <table class="table table-hover">
+            <tbody>
+                {% for Liked_listing in user_liked_listing %}
+                <tr>
+                    <td>{{ Liked_listing.id }}</td>
+                    <td>{{ Liked_listing.listing.model }}</td>
+                    <td>{{ Liked_listing.like_listing_date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="container px-4 py-5">
+        <div class="row g-4">
+            <div class="col d-flex align-items-start">
+                <div>
                     <h2 class="mb-3 border-bottom" style="color: black">Your Listing</h2>
                 </div>
             </div>

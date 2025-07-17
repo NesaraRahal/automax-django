@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, render, redirect
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
-from .models import Listing
+from .models import Listing, LikedListing
 from django.contrib import messages
 from .forms import ListingForm
 from users.forms import LocationForm
@@ -88,3 +88,17 @@ def edit_view(request, id):
     except Exception as e:
         messages.error(request, f'An error occured while tryig to access the edit page')
         return redirect('home')
+    
+@login_required
+def like_listing_view(request, id):
+    listing =  get_object_or_404(Listing, id=id)
+    liked_listing, created = LikedListing.objects.get_or_create(profile=request.user.profile, listing = listing)
+
+    if not created:
+        liked_listing.delete()
+    else:
+        liked_listing.save()
+
+    return JsonResponse({
+        'is_liked_by_user': created
+    })

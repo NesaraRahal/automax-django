@@ -31,7 +31,7 @@ class Listing(models.Model):
 class LikedListing(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
-    like_listing = models.DateTimeField(auto_now_add=True)
+    like_listing_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f'{self.listing.model} like by {self.profile.user.username}'
