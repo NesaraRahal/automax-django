@@ -5,6 +5,8 @@ from .models import Listing, LikedListing
 from django.contrib import messages
 from .forms import ListingForm
 from users.forms import LocationForm
+from django.core.mail import send_mail
+
 
 #Filter import
 from .filters import ListingFilter
@@ -105,3 +107,21 @@ def like_listing_view(request, id):
     return JsonResponse({
         'is_liked_by_user': created
     })
+
+
+@login_required
+def inquire_using_email(request, id):
+    listing = get_object_or_404(Listing, id=id)
+    try:
+        email_subject = f'{request.user.username} is intereseted in {listing.model}'
+        email_messgae = f'Hi! {listing.seller.user.username}, {request.user.username} is interested in  your {listing.model}'
+        send_mail(email_subject, email_messgae, 'noreply@gmail.com', [listing.seller.user.email], fail_silently=True)
+        return JsonResponse({
+            "success":True
+        })
+    except Exception as e:
+        print(e)
+        return JsonResponse({
+            "success":False,
+            "info":e
+        })
