@@ -17,9 +17,12 @@ def main_view(request):
 def home_view(request):
     #Retrieve all listing objects to render in home.html as card elements
     listings = Listing.objects.all()
+    liked_listing = LikedListing.objects.filter(profile = request.user.profile).values_list('listing')
     Listing_Filter = ListingFilter(request.GET, queryset = listings)
+    liked_listing_id = [l[0] for l in liked_listing]
     context = {
-        "Listing_Filter" : Listing_Filter
+        "Listing_Filter" : Listing_Filter,
+        "liked_listing_id"  : liked_listing_id
     }
     return render(request, "views/home.html", context)
 
