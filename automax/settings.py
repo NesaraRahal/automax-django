@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 import environ
 
+
 from django.contrib.messages import constants as messages
 
 
@@ -87,12 +88,26 @@ WSGI_APPLICATION = 'automax.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if env('USERDEBUG') == 'True':
+    print('hi')
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    print('not debug')
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': env('DBNAME'),
+            'USER': env('DBUSER'),
+            'PASSWORD': env('DBPASSWORD'),
+            'HOST': env('DBHOST'),
+            'PORT': env('DBPORT'),
+        }
+    }
 
 
 # Password validation

@@ -56,10 +56,10 @@
             data : { 'csrfmiddlewaretoken' : '{{csrf_token}}' },
             dataType : "json",  
             success : function(r){
-                $('#like_{{listing.id}}').find("svg").attr("fill", r.is_liked_by_user ? "red" : "black")
+                alert("Email sent successfully")
             },
             error : function(rs, e){
-                alert(e)
+                alert(rs.info)
             }
         });
     })
