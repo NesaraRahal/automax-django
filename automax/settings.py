@@ -33,7 +33,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(env('DEBUG'))
+DEBUG = env.bool("DEBUG")
 
 ALLOWED_HOSTS = []
 
@@ -158,6 +158,13 @@ STATIC_URL = 'static/'
 #Media (uploaded files specially images)
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_ACCESS_KEY_ID = env('BUCKETEER_AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = env('BUCKETEER_AWS_SECRET_ACCESS_KEY')
+AWS_S3_REGION_NAME = env('BUCKETEER_AWS_REGION')
+AWS_STORAGE_BUCKET_NAME = env('BUCKETEER_BUCKET_NAME')
+
 
 #Crispy form default     
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
